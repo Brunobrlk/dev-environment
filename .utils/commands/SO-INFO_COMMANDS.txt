@@ -1,0 +1,5 @@
+// Get information about devices
+lsusb
+
+// using info get through lsusb, inspect a specific devices
+lsusb -v -s [Bus:Device]

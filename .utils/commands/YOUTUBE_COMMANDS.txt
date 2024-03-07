@@ -1,0 +1,13 @@
+k = Pause/play video
+j = Back 10 seconds
+l = Foward 10 seconds
+, = Previous frame
+. = Next frame
+< = Decrease playback rate
+> = Increase playback rate
+CTRL + Right Arrow = Next Chapter
+CTRL + Left Arrow = Previous Chapter
+m = Mute/Unmute
+f = Fullscreen
+t = Theater
+c = Turn on/off captions

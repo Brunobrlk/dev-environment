@@ -1,0 +1,33 @@
+^ = CTRL
+MASTER = ^ + s
+Prompt = MASTER + :
+
+[Screen Split]
+MASTER + - = Horizontal Split
+MASTER + | = Vertical Split
+
+[Managing Panes]
+MASTER + AnyArrowKey = Move to another pane
+MASTER(Keep Pressing) + AnyArrowKey = Adjust Pane Size
+MASTER + { or } = Change current pane position 
+MASTER + SPACE = Rearange panes to different layouts
+MASTER + q then [Pane Number]
+
+[Nav/Manage Windows]
+MASTER + c = Nova janela(Listadas na parte inferior)
+MASTER + n(next) = Janela a direita
+MASTER + p(previous) = Janela a esquerda
+MASTER + [NUMERO] = Janela referente ao numero
+MASTER + , = Renomear janela atual
+exit = Closes the window
+
+[Managing Sessions] - Permanecem mesmo após reiniciar o sistema
+tmux = Start a new session without a name(Can rename afterwards)
+tmux new -s [session_name] = Start a new session with a name
+MASTER + d(detach) = Persiste a sessão e para quando voltar permanecer no mesmo estado
+tmux ls = Lista todas as sessões existentes
+tmux a = Retorna a ultima sessão do estado que parou
+tmux a(attach) -t <nome> = Retorna a sessão <nome> do estado que parou
+tmux rename-session -t [target_session_name] [new_session_name]
+MASTER + s = Switch between sessions without leaving tmux. Opens a tab with your sessions
+MASTER + w = Opens a tab with your sessions and windows within each session

@@ -1,0 +1,24 @@
+[Move Window to Left/Right Monitor]
+	Super + Shift + [Left/Right]
+
+[Move window to Next/Previous Workspace]
+	Ctrl + Shift + Alt + [Left/Right]
+
+[Resize window to fit in the Left/Right/Top/Bottom of the screen]
+	Super + [Left/Right/Up/Down]
+
+[Maximize/Unmaximize window]
+	Alt + Space then x
+
+[Minimize window]
+	Alt + Space thenpace]
+	Ctrl + Alt + n
+
+[Alternate windows]
+	Alt + TAB
+
+[Change to Left/Right Workspace]
+	Ctrl + Alt + [Left/Right]
+
+
+
