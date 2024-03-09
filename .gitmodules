@@ -1,0 +1,3 @@
+[submodule "shell-scripts"]
+	path = shell-scripts
+	url = git@github.com:Brunobrlk/shell-scripts.git
