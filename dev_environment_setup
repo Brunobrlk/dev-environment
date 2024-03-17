@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Check if the script runs with sudo
 if [ "$EUID" -ne 0 ]; then
     echo "This script requires superuser privileges"
