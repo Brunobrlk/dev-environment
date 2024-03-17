@@ -1,0 +1,213 @@
+# Check if the script runs with sudo
+if [ "$EUID" -ne 0 ]; then
+    echo "This script requires superuser privileges"
+    exit 1
+fi
+
+# Helpers
+alias apti="apt install -y"
+USER_HOME="/home/$SUDO_USER"
+SCRIPT_PATH=$(dirname "$(realpath "$0")")
+HD_PATH="/media/$(whoami)/Bruno"
+
+# Other resources
+cp -r "$SCRIPT_PATH/.utils" $USER_HOME
+cp -r "$HD_PATH/Backup/Downloads" $USER_HOME
+cp -r "$HD_PATH/Backup/Pictures" $USER_HOME
+cp -r "$HD_PATH/Backup/Documents" $USER_HOME
+cp -r "$HD_PATH/Backup/Development" $USER_HOME
+cp -r "$HD_PATH/Backup/Music" $USER_HOME
+cp -r "$HD_PATH/Backup/Videos" $USER_HOME
+
+# Setup GUI - Install Theme and Change background
+mkdir -p "$USER_HOME/.themes"
+unzip "$HD_PATH/Backup/Adapta-Nokto.zip"
+mv "$HD_PATH/Backup/Adapta-Nokto" "$USER_HOME/.themes/"
+gsettings set org.cinnamon.desktop.interface gtk-theme 'Adapta-Nokto'
+gsettings set org.cinnamon.desktop.wm.preferences theme 'Adapta-Nokto'
+gsettings set org.cinnamon.desktop.interface icon-theme 'Mint-Y-Dark-Blue'
+gsettings set org.cinnamon.desktop.interface gtk-theme 'Adapta-Nokto'
+gsettings set org.cinnamon.desktop.background picture-uri "file://$USER_HOME/Pictures/Wallpapers/SaoWallpaper.png"
+
+# Install common dependencies
+apti build-essential gdb curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev bash file git unzip xz-utils zip clang cmake ninja-build libgtk-3-dev
+
+# Install personal scripts
+cp -r "$SCRIPT_PATH/shell-scripts" "$USER_HOME/.local/bin/"
+cd "$USER_HOME/.local/bin/shell-scripts" && "./setup"
+
+# Install and configure asdf 
+git clone https://github.com/asdf-vm/asdf.git "$USER_HOME/.asdf" --branch v0.14.0
+
+echo ". \"\$HOME/.asdf/asdf.sh\"" >> "$USER_HOME/.bashrc"
+echo ". \"\$HOME/.asdf/completions/asdf.bash\"" >> "$USER_HOME/.bashrc"
+source "$USER_HOME/.bashrc"
+
+## Add language/framework asdf plugins
+asdf plugin-add neovim
+asdf plugin-add gradle
+asdf plugin-add java
+asdf plugin-add kotlin
+asdf plugin-add python
+asdf plugin-add nodejs
+asdf plugin-add rust
+asdf plugin-add flutter
+asdf plugin-add sqlite
+
+## Install Neovim
+asdf install neovim latest
+asdf global neovim latest
+
+## Install SQLite
+asdf install sqlite latest
+asdf global sqlite latest
+
+## Install Gradle
+asdf install gradle 3.3
+asdf install gradle 7.6.3
+asdf install gradle latest
+asdf global gradle latest
+
+## Install Kotlin
+asdf install kotlin 1.8.0
+asdf install kotlin latest
+asdf global kotlin latest
+
+## Install Java
+asdf install java corretto-8.392.08.1
+asdf install java liberica-1.8.0
+asdf install java openjdk-17
+asdf install java latest
+asdf global java latest 
+
+## Install Python
+asdf install python latest
+asdf global python latest
+
+## Install NodeJS
+asdf install nodejs latest
+asdf global nodejs latest
+
+## Install Rust
+asdf install rust latest
+asdf global rust latest
+
+## Install flutter
+asdf install flutter latest
+asdf global flutter latest
+flutter doctor --android-licenses
+flutter doctor
+
+# Install Lunar Vim
+# Make sure you have nodejs, python and rust installed via asdf
+# Then follow lunar vim installation
+LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
+
+## Download Nerd Fonts
+mkdir -p "$USER_HOME/.local/share/fonts"
+cd "$USER_HOME/.local/share/fonts" && curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
+
+# Install tmux
+apti tmux
+cp "$SCRIPT_PATH/.tmux.conf" "$USER_HOME/"
+
+### Change your terminal font in order to have DroidSans working
+
+# Install common softwares
+mkdir -p "$USER_HOME/Downloads/Softwares"
+cd "$USER_HOME/Downloads/Softwares"
+
+## Install PCSX2
+apti pcsx2
+
+## Install Joystick Calibrator
+apti jstest-gtk
+
+## Install Torrent/Transmission
+apti transmission
+
+## Install Terminal Translator
+apti translate-shell
+
+## Install tldr
+apti tldr
+
+## Install Google Chrome
+apti google-chrome-stable
+
+## Install Firefox
+apti firefox
+
+## Install Brave
+curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+apt update
+apti brave-browser
+
+## Install Discord
+apti discord
+
+## Install Skype
+apti skypeforlinux
+
+## Install Gimp
+apti gimp
+
+## Install Libreoffice
+apti libreoffice
+
+## Install Webcam
+apti guvcview
+
+## Install Kdenlive
+apti kdenlive
+
+## Install OBS Studio
+apti obs-studio
+
+## Install Shotcut
+apti shotcut
+
+## Install VLC
+apti vlc
+
+## Install Anydesk
+apti anydesk
+
+## Install TeamViewer
+apti teamviewer
+
+## Install Virt Manager(Require to reboot)
+apti qemu-kvm
+apti libvirt-daemon-system libvirt-clients
+adduser $SUDO_USER kvm
+apti virt-manager
+
+## Install Dbeaver
+apti dbeaver-ce
+
+## Install Insomnia
+apti insomnia
+
+## Install Postman
+curl -L -o postman.tar.gz https://dl.pstmn.io/download/latest/linux64
+tar -xzf postman.tar.gz
+mv Postman /opt
+ln -s /opt/Postman/Postman /usr/local/bin/postman
+
+## Install Genymotion(Didn't find any mechanism to get the latest version automatically)
+latest_version="3.6.0"
+download_url="https://dl.genymotion.com/releases/genymotion-$latest_version/genymotion-$latest_version-linux_x64.bin"
+wget "$download_url"
+chmod +x genymotion-$latest_version-linux_x64.bin
+./genymotion-$latest_version-linux_x64.bin -d /opt
+ln -s /opt/genymotion/genymotion-shell "$USER_HOME/.local/bin"
+ln -s /opt/genymotion/gmtool "$USER_HOME/.local/bin"
+
+## Install vscode
+curl -L -o vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+dpkg -i vscode.deb
+apt install -f
+
+## Install Android Studio versions and emulators
+"$SCRIPT_PATH/shell-scripts/setup_android_studio"

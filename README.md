@@ -32,3 +32,9 @@ Development Environment
             /#Images
             /#Logos
             /#Gifs
+Backup/
+    Android/
+    Keys/
+    Documents/
+    Downloads/
+    Pictures/

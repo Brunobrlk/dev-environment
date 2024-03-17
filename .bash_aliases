@@ -27,11 +27,14 @@ alias ..5='cd ../../../../../'
 alias cdmobile='cd ~/Development/Mobile/Apps-Nativo'
 alias cdpy='cd ~/Development/Python'
 alias cdgit='cd ~/Development/Github/'
+alias cdpro='cd ~/Development/Projects/'
+alias cdbash='cd ~/Development/BashScripts/'
 
 # Creating multiple folder structures. Ex: mkdirs com/example/package
 alias mkdirs='mkdir -p'
 
 # Showing system information
+alias basedon='cat /etc/upstream-release/lsb-release'
 alias sysinfo='inxi -v 8'
 alias duh='du -h --max-depth=1'
 
@@ -52,11 +55,21 @@ alias emroot='emulator -avd Nexus_6_API_30_Android_R_Rooted_Device_-_No_Play_Sto
 alias cdmain='cd "app/src/main/java/$(sed -n "s/applicationId[[:space:]]*\"\\([^\"]*\\)\"/\\1/p" app/build.gradle | sed -e "s/\./\//g" | sed -e "s/^[[:space:]]*//")"'
 alias cdres='cd app/src/main/res'
 
+# Python Virtual Environment
+alias pyvenv='[ -d venv ] && { read -p "A virtual environment already exists. Do you want to recreate it? (y/n): " -n 1 -r && echo ""; [[ $REPLY =~ ^[Yy]$ ]] && rm -rf venv; } || python -m venv venv'
+alias pyon='source venv/bin/activate'
+alias pyoff='deactivate'
+
 # Watching commands
 alias w0='watch -n 0.5'
 alias w1='watch -n 1'
 alias w2='watch -n 2'
 
+# Terminal Translator
+alias pt='trans :pt'
+alias en='trans'
+
 # Utils
 alias src='source ~/.bashrc'
 alias vim='nvim'
+alias whatapp='xprop | grep WM_CLASS'
