@@ -8,7 +8,7 @@ fi
 alias apti="apt install -y"
 USER_HOME="/home/$SUDO_USER"
 SCRIPT_PATH=$(dirname "$(realpath "$0")")
-HD_PATH="/media/$(whoami)/Bruno"
+HD_PATH="/media/$SUDO_USER/Bruno"
 
 # Other resources
 cp -r "$SCRIPT_PATH/.utils" $USER_HOME
