@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable alias expansion
+shopt -s expand_aliases 
+
 # Helpers
 alias apti="sudo apt install -y"
 USER_HOME="$HOME"
@@ -7,13 +10,13 @@ SCRIPT_PATH=$(dirname "$(realpath "$0")")
 HD_PATH="/media/$(whoami)/Bruno"
 
 # Other resources
-rsync -avhp "$SCRIPT_PATH/.utils" "$USER_HOME/.utils"
-rsync -avhp "$HD_PATH/Backup/Downloads" "$USER_HOME/Downloads"
-rsync -avhp "$HD_PATH/Backup/Pictures" "$USER_HOME/Pictures"
-rsync -avhp "$HD_PATH/Backup/Documents" "$USER_HOME/Documents"
-rsync -avhp "$HD_PATH/Backup/Development" "$USER_HOME/Development"
-rsync -avhp "$HD_PATH/Backup/Music" "$USER_HOME/Music"
-rsync -avhp "$HD_PATH/Backup/Videos" "$USER_HOME/Videos"
+cp -rv "$SCRIPT_PATH/.utils" "$USER_HOME"
+cp -rv "$HD_PATH/Backup/Downloads" "$USER_HOME"
+cp -rv "$HD_PATH/Backup/Pictures" "$USER_HOME"
+cp -rv "$HD_PATH/Backup/Documents" "$USER_HOME"
+cp -rv "$HD_PATH/Backup/Development" "$USER_HOME"
+cp -rv "$HD_PATH/Backup/Music" "$USER_HOME"
+cp -rv "$HD_PATH/Backup/Videos" "$USER_HOME"
 
 # Setup GUI - Install Theme and Change background
 mkdir -p "$USER_HOME/.themes"
