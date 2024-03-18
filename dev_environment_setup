@@ -21,7 +21,7 @@ cp -rv "$HD_PATH/Backup/Videos" "$USER_HOME"
 # Setup GUI - Install Theme and Change background
 mkdir -p "$USER_HOME/.themes"
 unzip "$HD_PATH/Backup/Adapta-Nokto.zip"
-mv "$HD_PATH/Backup/Adapta-Nokto" "$USER_HOME/.themes/"
+mv "$SCRIPT_PATH/Adapta-Nokto" "$USER_HOME/.themes/"
 gsettings set org.cinnamon.desktop.interface gtk-theme 'Adapta-Nokto'
 gsettings set org.cinnamon.desktop.wm.preferences theme 'Adapta-Nokto'
 gsettings set org.cinnamon.desktop.interface icon-theme 'Mint-Y-Dark-Blue'
