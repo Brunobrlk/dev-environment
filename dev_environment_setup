@@ -1,5 +1,74 @@
 #!/bin/bash
 
+# Author: Bruno Guimarães
+# Description: Setup development environment turning a raw system into a customized capable system
+# Version: 1.0
+# Last Updated: 18/03/2024
+
+
+# Function to display script usage information
+usage() {
+  cat <<EOF
+$(basename $0) - Setup development environment
+
+Description:
+    $(basename $0) is a script for setting up a raw system. It allows you to turn a raw system into a customized capable configured system.
+    More information at the official repository at: https://github.com/Brunobrlk/dev-environment
+
+Usage:
+    $(basename $0) [options] 
+
+Options:
+    -h, --help                    Display this help message and exit
+    --hd-name=HD_NAME             Receives the external HD name where your user resources are
+    --background=IMAGE            Receives the image name located at Backup/Wallpapers/
+    --add-softwares=PACKAGES      Receives a list of softwares to be installed separated by space
+    --ignore-all                  This option ignores all default packages that would be installed
+    --ignore=PACKAGES             Receives a list of codes related to packages that must be ignored (See github repository: https://github.com/Brunobrlk/dev-environment)
+
+Examples:
+    $(basename $0) --hd-name="Bruno" --background="SaoWallpaper.png" --add-softwares="krita spotify blender" --ignore-all      Will get resources from /media/user/Bruno, set wallpaper to Backup/Pictures/Wallpapers/SaoWallpaper.png and will ignore all default packages and install only krita, spotify and blender.
+EOF
+}
+
+# Parse command-line options
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h | --help)
+            usage
+            ;;
+        --hd-name=*)
+            echo "hd-name is set"
+            # Handle logic
+            ;;
+        --background=*)
+            echo "background is set"
+            # Handle logic
+            ;;
+        # Add more flags here
+        --add-softwares=*)
+            echo "add-softwares is set" 
+            # Handle logic
+            ;;
+        --ignore-all)
+            echo "ignore-all is set"
+            # Handle logic
+            ;;
+        --ignore=*)
+            echo "ignore is set"
+            # Handle logic
+            ;;
+        -*)
+            echo "Error: Unknown option: $1"
+            usage
+            ;;
+        *)
+            break
+            ;;
+    esac
+    shift
+done
+
 # Enable alias expansion
 shopt -s expand_aliases 
 
