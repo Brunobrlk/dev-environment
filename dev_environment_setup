@@ -1,25 +1,19 @@
 #!/bin/bash
 
-# Check if the script runs with sudo
-if [ "$EUID" -ne 0 ]; then
-    echo "This script requires superuser privileges"
-    exit 1
-fi
-
 # Helpers
-alias apti="apt install -y"
-USER_HOME="/home/$SUDO_USER"
+alias apti="sudo apt install -y"
+USER_HOME="$HOME"
 SCRIPT_PATH=$(dirname "$(realpath "$0")")
-HD_PATH="/media/$SUDO_USER/Bruno"
+HD_PATH="/media/$(whoami)/Bruno"
 
 # Other resources
-cp -r "$SCRIPT_PATH/.utils" $USER_HOME
-cp -r "$HD_PATH/Backup/Downloads" $USER_HOME
-cp -r "$HD_PATH/Backup/Pictures" $USER_HOME
-cp -r "$HD_PATH/Backup/Documents" $USER_HOME
-cp -r "$HD_PATH/Backup/Development" $USER_HOME
-cp -r "$HD_PATH/Backup/Music" $USER_HOME
-cp -r "$HD_PATH/Backup/Videos" $USER_HOME
+rsync -avhp "$SCRIPT_PATH/.utils" "$USER_HOME/.utils"
+rsync -avhp "$HD_PATH/Backup/Downloads" "$USER_HOME/Downloads"
+rsync -avhp "$HD_PATH/Backup/Pictures" "$USER_HOME/Pictures"
+rsync -avhp "$HD_PATH/Backup/Documents" "$USER_HOME/Documents"
+rsync -avhp "$HD_PATH/Backup/Development" "$USER_HOME/Development"
+rsync -avhp "$HD_PATH/Backup/Music" "$USER_HOME/Music"
+rsync -avhp "$HD_PATH/Backup/Videos" "$USER_HOME/Videos"
 
 # Setup GUI - Install Theme and Change background
 mkdir -p "$USER_HOME/.themes"
@@ -143,7 +137,7 @@ apti firefox
 ## Install Brave
 curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-apt update
+sudo apt update
 apti brave-browser
 
 ## Install Discord
@@ -182,7 +176,7 @@ apti teamviewer
 ## Install Virt Manager(Require to reboot)
 apti qemu-kvm
 apti libvirt-daemon-system libvirt-clients
-adduser $SUDO_USER kvm
+sudo adduser "$(whoami)" kvm
 apti virt-manager
 
 ## Install Dbeaver
@@ -194,8 +188,8 @@ apti insomnia
 ## Install Postman
 curl -L -o postman.tar.gz https://dl.pstmn.io/download/latest/linux64
 tar -xzf postman.tar.gz
-mv Postman /opt
-ln -s /opt/Postman/Postman /usr/local/bin/postman
+sudo mv Postman /opt
+sudo ln -s /opt/Postman/Postman /usr/local/bin/postman
 
 ## Install Genymotion(Didn't find any mechanism to get the latest version automatically)
 latest_version="3.6.0"
@@ -208,8 +202,8 @@ ln -s /opt/genymotion/gmtool "$USER_HOME/.local/bin"
 
 ## Install vscode
 curl -L -o vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-dpkg -i vscode.deb
-apt install -f
+sudo dpkg -i vscode.deb
+sudo apt install -f
 
 ## Install Android Studio versions and emulators
 "$SCRIPT_PATH/shell-scripts/setup_android_studio"
