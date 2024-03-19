@@ -29,6 +29,7 @@ Options:
 Examples:
     $(basename $0) --hd-name="Bruno" --background="SaoWallpaper.png" --add-softwares="krita spotify blender" --ignore-all      Will get resources from /media/user/Bruno, set wallpaper to Backup/Pictures/Wallpapers/SaoWallpaper.png and will ignore all default packages and install only krita, spotify and blender.
 EOF
+exit 0
 }
 
 # Parse command-line options
@@ -101,7 +102,7 @@ gsettings set org.cinnamon.desktop.background picture-uri "file://$USER_HOME/Pic
 apti build-essential gdb curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev bash file git unzip xz-utils zip clang cmake ninja-build libgtk-3-dev
 
 # Install personal scripts
-cp -r "$SCRIPT_PATH/shell-scripts" "$USER_HOME/.local/bin/"
+cp -rv "$SCRIPT_PATH/shell-scripts" "$USER_HOME/.local/bin/"
 cd "$USER_HOME/.local/bin/shell-scripts" && "./setup"
 
 # Install and configure asdf 
@@ -201,6 +202,9 @@ apti translate-shell
 apti tldr
 
 ## Install Google Chrome
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+sudo apt update
 apti google-chrome-stable
 
 ## Install Firefox
