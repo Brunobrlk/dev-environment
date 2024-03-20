@@ -252,7 +252,9 @@ sudo apt update
 apti anydesk
 
 ## Install TeamViewer
-apti teamviewer
+wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+sudo dpkg -i teamviewer_amd64.deb
+sudo apt-get install -f
 
 ## Install Virt Manager(Require to reboot)
 apti qemu-kvm
@@ -261,7 +263,9 @@ sudo adduser "$(whoami)" kvm
 apti virt-manager
 
 ## Install Dbeaver
-apti dbeaver-ce
+wget -O dbeaver.deb https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
+sudo dpkg -i dbeaver.dev
+sudo apt-get install -f
 
 ## Install Insomnia
 apti insomnia
