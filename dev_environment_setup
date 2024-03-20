@@ -268,7 +268,9 @@ sudo dpkg -i dbeaver.dev
 sudo apt-get install -f
 
 ## Install Insomnia
-apti insomnia
+wget -O insomnia.deb https://updates.insomnia.rest/downloads/ubuntu/latest
+sudo dpkg -i insomnia.deb
+sudo apt-get install -f
 
 ## Install Postman
 curl -L -o postman.tar.gz https://dl.pstmn.io/download/latest/linux64
