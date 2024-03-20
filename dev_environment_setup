@@ -217,7 +217,9 @@ sudo apt update
 apti brave-browser
 
 ## Install Discord
-apti discord
+wget -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
+sudo dpkg -i discord.deb
+sudo apt install -f
 
 ## Install Skype
 apti skypeforlinux
