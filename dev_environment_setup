@@ -5,6 +5,15 @@
 # Version: 1.0
 # Last Updated: 18/03/2024
 
+# Enable alias expansion
+shopt -s expand_aliases 
+
+# Helpers
+alias apti="sudo apt install -y"
+
+HD_NAME="Bruno"
+USER_HOME="$HOME"
+SCRIPT_PATH=$(dirname "$(realpath "$0")")
 
 # Function to display script usage information
 usage() {
@@ -21,13 +30,13 @@ Usage:
 Options:
     -h, --help                    Display this help message and exit
     --hd-name=HD_NAME             Receives the external HD name where your user resources are
-    --background=IMAGE            Receives the image name located at Backup/Wallpapers/
+    --wallpaper=IMAGE             Receives the image name located at Backup/Wallpapers/
     --add-softwares=PACKAGES      Receives a list of softwares to be installed separated by space
     --ignore-all                  This option ignores all default packages that would be installed
     --ignore=PACKAGES             Receives a list of codes related to packages that must be ignored (See github repository: https://github.com/Brunobrlk/dev-environment)
 
 Examples:
-    $(basename $0) --hd-name="Bruno" --background="SaoWallpaper.png" --add-softwares="krita spotify blender" --ignore-all      Will get resources from /media/user/Bruno, set wallpaper to Backup/Pictures/Wallpapers/SaoWallpaper.png and will ignore all default packages and install only krita, spotify and blender.
+    $(basename $0) --hd-name="Bruno" --wallpaper="SaoWallpaper.png" --add-softwares="krita spotify blender" --ignore-all      Will get resources from /media/user/Bruno, set wallpaper to Backup/Pictures/Wallpapers/SaoWallpaper.png and will ignore all default packages and install only krita, spotify and blender.
 EOF
 exit 0
 }
@@ -42,8 +51,8 @@ while [[ $# -gt 0 ]]; do
             echo "hd-name is set"
             # Handle logic
             ;;
-        --background=*)
-            echo "background is set"
+        --wallpaper=*)
+            echo "wallpaper is set"
             # Handle logic
             ;;
         # Add more flags here
@@ -70,20 +79,13 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-# Enable alias expansion
-shopt -s expand_aliases 
-
-# Helpers
-alias apti="sudo apt install -y"
-USER_HOME="$HOME"
-SCRIPT_PATH=$(dirname "$(realpath "$0")")
-HD_PATH="/media/$(whoami)/Bruno"
 
 # Create .local/bin folder if doesn't exist yet
 mkdir -p "$USER_HOME/.local/bin"
 source "$USER_HOME/.profile"
 
 # Other resources
+HD_PATH="/media/$(whoami)/$HD_NAME"
 cp -rv "$HD_PATH/Backup/Pictures" "$USER_HOME" & PICTURES_PID=$!
 cp -rv "$HD_PATH/Backup/Documents" "$USER_HOME" & DOCUMENTS_PID=$!
 cp -rv "$HD_PATH/Backup/Development" "$USER_HOME" & DEVELOPMENT_PID=$!
@@ -93,14 +95,23 @@ cp -rv "$HD_PATH/Backup/Downloads" "$USER_HOME" & DOWNLOADS_PID=$!
 cp -rv "$SCRIPT_PATH/.utils" "$USER_HOME" &
 
 # Setup GUI - Install Theme and Change background
+DESKTOP_THEME="Adapta-Nokto"
+ICON_THEME="Mint-Y-Dark-Blue"
+WALLPAPER="SaoWallpaper.png"
+
+if [ "$(lsb_release -rs)" = "21.3"]; then
+  ICON_THEME="Mint-L-Blue"
+fi
+
 mkdir -p "$USER_HOME/.themes"
-unzip "$HD_PATH/Backup/Adapta-Nokto.zip"
-mv "$SCRIPT_PATH/Adapta-Nokto" "$USER_HOME/.themes/"
-gsettings set org.cinnamon.desktop.interface gtk-theme 'Adapta-Nokto'
-gsettings set org.cinnamon.desktop.wm.preferences theme 'Adapta-Nokto'
-gsettings set org.cinnamon.desktop.interface icon-theme 'Mint-Y-Dark-Blue'
-gsettings set org.cinnamon.desktop.interface gtk-theme 'Adapta-Nokto'
-gsettings set org.cinnamon.desktop.background picture-uri "file://$USER_HOME/Pictures/Wallpapers/SaoWallpaper.png"
+unzip "$HD_PATH/Backup/$DESKTOP_THEME.zip"
+mv "$SCRIPT_PATH/$DESKTOP_THEME" "$USER_HOME/.themes/"
+
+gsettings set org.cinnamon.desktop.interface gtk-theme "$DESKTOP_THEME"
+gsettings set org.cinnamon.desktop.wm.preferences theme "$DESKTOP_THEME"
+gsettings set org.cinnamon.desktop.interface icon-theme "$ICON_THEME"
+gsettings set org.cinnamon.desktop.interface gtk-theme "$DESKTOP_THEME"
+gsettings set org.cinnamon.desktop.background picture-uri "file://$USER_HOME/Pictures/Wallpapers/$WALLPAPER"
 
 # Install common dependencies
 apti build-essential gdb curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev bash file git unzip xz-utils zip clang cmake ninja-build libgtk-3-dev
