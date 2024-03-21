@@ -84,13 +84,13 @@ mkdir -p "$USER_HOME/.local/bin"
 source "$USER_HOME/.profile"
 
 # Other resources
-cp -rv "$SCRIPT_PATH/.utils" "$USER_HOME"
-cp -rv "$HD_PATH/Backup/Downloads" "$USER_HOME"
-cp -rv "$HD_PATH/Backup/Pictures" "$USER_HOME"
-cp -rv "$HD_PATH/Backup/Documents" "$USER_HOME"
-cp -rv "$HD_PATH/Backup/Development" "$USER_HOME"
-cp -rv "$HD_PATH/Backup/Music" "$USER_HOME"
-cp -rv "$HD_PATH/Backup/Videos" "$USER_HOME"
+cp -rv "$HD_PATH/Backup/Pictures" "$USER_HOME" & PICTURES_PID=$!
+cp -rv "$HD_PATH/Backup/Documents" "$USER_HOME" & DOCUMENTS_PID=$!
+cp -rv "$HD_PATH/Backup/Development" "$USER_HOME" & DEVELOPMENT_PID=$!
+cp -rv "$HD_PATH/Backup/Videos" "$USER_HOME" & VIDEOS_PID=$!
+cp -rv "$HD_PATH/Backup/Music" "$USER_HOME" & MUSIC_PID=$!
+cp -rv "$HD_PATH/Backup/Downloads" "$USER_HOME" & DOWNLOADS_PID=$!
+cp -rv "$SCRIPT_PATH/.utils" "$USER_HOME" &
 
 # Setup GUI - Install Theme and Change background
 mkdir -p "$USER_HOME/.themes"
@@ -187,8 +187,9 @@ cp "$SCRIPT_PATH/.tmux.conf" "$USER_HOME/"
 ### Change your terminal font in order to have DroidSans working
 
 # Install common softwares
-mkdir -p "$USER_HOME/Downloads/Softwares"
-cd "$USER_HOME/Downloads/Softwares"
+TMP_FOLDER="$USER_HOME/TemporaryFolder"
+mkdir -p "$TMP_FOLDER"
+cd "$TMP_FOLDER"
 
 ## Install PCSX2
 apti pcsx2
@@ -297,5 +298,14 @@ curl -L -o vscode.deb "https://code.visualstudio.com/sha/download?build=stable&o
 sudo dpkg -i vscode.deb
 sudo apt install -f
 
+# Clean up unused resources
+cd
+rm -rf "$TMP_FOLDER"
+
 ## Install Android Studio versions and emulators
+wait $DOWNLOADS_PID
 "$SCRIPT_PATH/shell-scripts/setup_android_studio"
+
+echo "Verifying and waiting all copying jobs to finish..."
+wait 
+echo "All files have been copied. Script finished successifully!"
