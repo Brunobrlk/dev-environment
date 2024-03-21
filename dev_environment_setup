@@ -218,10 +218,8 @@ apti translate-shell
 apti tldr
 
 ## Install Google Chrome
-wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor --yes --output /usr/share/keyrings/google-chrome-archive-keyring.gpg
-echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-sudo apt update
-apti google-chrome-stable
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 ## Install Firefox
 apti firefox
