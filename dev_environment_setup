@@ -115,7 +115,7 @@ gsettings set org.cinnamon.desktop.interface gtk-theme "$DESKTOP_THEME"
 gsettings set org.cinnamon.desktop.background picture-uri "file://$USER_HOME/Pictures/Wallpapers/$WALLPAPER"
 
 # Make the system up to date
-sudo apt -y dist-upgrade
+sudo apt dist-upgrade -y
 
 # Install common dependencies
 apti build-essential gdb curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev bash file git unzip xz-utils zip clang cmake ninja-build libgtk-3-dev
@@ -240,7 +240,7 @@ apti brave-browser
 ## Install Discord
 wget -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
 sudo dpkg -i discord.deb
-sudo apt install -f
+sudo apt install -f -y
 
 ## Install Skype
 apti skypeforlinux
@@ -276,7 +276,7 @@ apti anydesk
 ## Install TeamViewer
 wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 sudo dpkg -i teamviewer_amd64.deb
-sudo apt-get install -f
+sudo apt-get install -f -y
 
 ## Install Virt Manager(Require to reboot)
 apti qemu-kvm
@@ -287,12 +287,12 @@ apti virt-manager
 ## Install Dbeaver
 wget -O dbeaver.deb https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
 sudo dpkg -i dbeaver.deb
-sudo apt-get install -f
+sudo apt-get install -f -y
 
 ## Install Insomnia
 wget -O insomnia.deb https://updates.insomnia.rest/downloads/ubuntu/latest
 sudo dpkg -i insomnia.deb
-sudo apt-get install -f
+sudo apt-get install -f -y
 
 ## Install Postman
 curl -L -o postman.tar.gz https://dl.pstmn.io/download/latest/linux64
@@ -312,7 +312,7 @@ sudo ln -s /opt/genymotion/gmtool "$USER_HOME/.local/bin"
 ## Install vscode
 curl -L -o vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 sudo dpkg -i vscode.deb
-sudo apt install -f
+sudo apt install -f -y
 
 # Clean up unused resources
 cd
