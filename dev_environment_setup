@@ -93,6 +93,7 @@ cp -rv "$HD_PATH/Backup/Videos" "$USER_HOME" & VIDEOS_PID=$!
 cp -rv "$HD_PATH/Backup/Music" "$USER_HOME" & MUSIC_PID=$!
 cp -rv "$HD_PATH/Backup/Downloads" "$USER_HOME" & DOWNLOADS_PID=$!
 cp -rv "$SCRIPT_PATH/.utils" "$USER_HOME" &
+cp "$SCRIPT_PATH/.bash_aliases" "$USER_HOME"
 
 # Setup GUI - Install Theme and Change background
 DESKTOP_THEME="Adapta-Nokto"
