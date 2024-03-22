@@ -100,7 +100,7 @@ DESKTOP_THEME="Adapta-Nokto"
 ICON_THEME="Mint-Y-Dark-Blue"
 WALLPAPER="SaoWallpaper.png"
 
-if [ "$(lsb_release -rs)" = "21.3"]; then
+if [ "$(lsb_release -rs)" = "21.3" ]; then
   ICON_THEME="Mint-L-Blue"
 fi
 
