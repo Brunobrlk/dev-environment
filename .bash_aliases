@@ -36,7 +36,7 @@ alias mkdirs='mkdir -p'
 # Showing system information
 alias basedon='cat /etc/upstream-release/lsb-release'
 alias sysinfo='inxi -v 8'
-alias duh='du -h --max-depth=1'
+alias duh='du -ha --max-depth=1 | sort -rh'
 
 # Networking
 alias ipinfo='curl ipinfo.io && echo && echo "Local IP: $(hostname -I)"'
@@ -60,10 +60,16 @@ alias pyvenv='[ -d venv ] && { read -p "A virtual environment already exists. Do
 alias pyon='source venv/bin/activate'
 alias pyoff='deactivate'
 
+# Virtual Machines
+alias vmwindows10='virsh start windows10; virt-manager --connect qemu:///system --show-domain-console windows10'
+alias vmwindows11='virsh start windows11; virt-manager --connect qemu:///system --show-domain-console windows11'
+alias vmmint21='virsh start mint21-3; virt-manager --connect qemu:///system --show-domain-console mint21-3'
+alias vmpopos22='virsh start popos-22-04; virt-manager --connect qemu:///system --show-domain-console popos22-04'
+
 # Watching commands
-alias w0='watch -n 0.5'
-alias w1='watch -n 1'
-alias w2='watch -n 2'
+alias w0='watch -n 0.5 '
+alias w1='watch -n 1 '
+alias w2='watch -n 2 '
 
 # Terminal Translator
 alias pt='trans :pt'
@@ -71,5 +77,6 @@ alias en='trans'
 
 # Utils
 alias src='source ~/.bashrc'
-alias vim='nvim'
+alias vim='lvim'
+alias bat='batcat'
 alias whatapp='xprop | grep WM_CLASS'
