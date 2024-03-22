@@ -323,5 +323,5 @@ wait $DOWNLOADS_PID
 "$SCRIPT_PATH/shell-scripts/setup_android_studio"
 
 echo "Verifying and waiting all copying jobs to finish..."
-wait 
+wait $PICTURES_PID $DOCUMENTS_PID $DEVELOPMENT_PID $VIDEOS_PID $MUSIC_PID
 echo "All files have been copied. Script finished successifully!"
