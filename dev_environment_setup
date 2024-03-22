@@ -113,6 +113,9 @@ gsettings set org.cinnamon.desktop.interface icon-theme "$ICON_THEME"
 gsettings set org.cinnamon.desktop.interface gtk-theme "$DESKTOP_THEME"
 gsettings set org.cinnamon.desktop.background picture-uri "file://$USER_HOME/Pictures/Wallpapers/$WALLPAPER"
 
+# Make the system up to date
+sudo apt -y dist-upgrade
+
 # Install common dependencies
 apti build-essential gdb curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev bash file git unzip xz-utils zip clang cmake ninja-build libgtk-3-dev
 
@@ -193,7 +196,10 @@ cd "$USER_HOME/.local/share/fonts" && curl -fLO https://github.com/ryanoasis/ner
 
 # Install tmux
 apti tmux
+apti xsel
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 cp "$SCRIPT_PATH/.tmux.conf" "$USER_HOME/"
+tmux source "$USER_HOME/.tmux.conf"
 
 ### Change your terminal font in order to have DroidSans working
 
