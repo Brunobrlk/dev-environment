@@ -12,8 +12,10 @@ MASTER(Keep Pressing) + AnyArrowKey = Adjust Pane Size
 MASTER + { or } = Change current pane position 
 MASTER + SPACE = Rearange panes to different layouts
 MASTER + q then [Pane Number]
+MASTER + z = Enter zen mode
 
 [Nav/Manage Windows]
+MASTER + ! = Turn the current pane into a new window 
 MASTER + c = Nova janela(Listadas na parte inferior)
 MASTER + n(next) = Janela a direita
 MASTER + p(previous) = Janela a esquerda

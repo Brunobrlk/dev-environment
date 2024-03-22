@@ -19,6 +19,3 @@
 
 [Change to Left/Right Workspace]
 	Ctrl + Alt + [Left/Right]
-
-
-

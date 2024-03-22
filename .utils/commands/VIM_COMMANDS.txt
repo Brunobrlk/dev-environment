@@ -1,1 +1,2 @@
-vim is here
+<Esc> or <C> + [ => Exiting modes
+<A> + k j => Move current line up / down
