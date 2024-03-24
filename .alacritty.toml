@@ -1,0 +1,23 @@
+import = [
+  "~/.themes/alacritty/catppuccin-macchiato.toml"
+]
+
+[window]
+decorations = "transparent"
+opacity = 0.85
+
+[font]
+size = 13
+# normal = { family = "UbuntuMono Nerd Font", style = "Regular" }
+normal = { family = "DroidSansM Nerd Font", style = "Regular" }
+
+[scrolling]
+history = 10000
+multiplier = 1
+
+[window.padding]
+x = 0
+y = 0
+
+[selection]
+save_to_clipboard = true

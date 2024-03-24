@@ -195,14 +195,21 @@ no | LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercon
 mkdir -p "$USER_HOME/.local/share/fonts"
 cd "$USER_HOME/.local/share/fonts" && curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
 
+# Install Alacritty - Terminal Emulator
+sudo add-apt-repository ppa:aslatter/ppa -y
+sudo apt update
+sudo apt install alacrity -y
+
+cd "$USER_HOME/.local/share/fonts" && url -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFont-Regular.ttf
+cp "$SCRIPT_PATH/.alacritty.toml" "$USER_HOME/.alacritty.toml"
+
 # Install tmux
 apti tmux
 apti xsel
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 cp "$SCRIPT_PATH/.tmux.conf" "$USER_HOME/"
 tmux source "$USER_HOME/.tmux.conf"
-
-### Change your terminal font in order to have DroidSans working
 
 # Install common softwares
 TMP_FOLDER="$USER_HOME/TemporaryFolder"
