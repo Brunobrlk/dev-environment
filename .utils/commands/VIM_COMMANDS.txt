@@ -1,2 +1,14 @@
+[Vim + LunarVim]
+
+leader = <Space>
+
+<leader> + w = Write the current file
+<leader> + q = Quit vim and ask confirmation if there's changes not saved
 <Esc> or <C> + [ => Exiting modes
+
 <A> + k j => Move current line up / down
+
+Link Ref:
+  - https://vimdoc.sourceforge.net/htmldoc/quickref.html#quickref
+  - https://vim.rtorr.com/
+  - https://devhints.io/vim

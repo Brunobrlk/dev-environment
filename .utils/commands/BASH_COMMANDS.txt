@@ -1,6 +1,6 @@
 CTRL + a = Go to start of the command
 CTRL + e = Go to end of the command
-CTRL + k = Delete command from the current point until the end
-CTRL + u = Delete command from the current point until the start 
+CTRL + k = Delete until the end -> Using tmux, first press <leader>
+CTRL + u = Delete until the start 
 
 CTRL + r = Search for past commands, if its not yet keep pressing CTRL + r until get the command

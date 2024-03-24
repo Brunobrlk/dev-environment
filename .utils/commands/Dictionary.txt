@@ -1,0 +1,5 @@
+Esc = <Esc>
+Alt = <A> or <M>
+Shift = <S> or Capital letter
+Ctrl = <C> or ^
+Super = <CMD>
