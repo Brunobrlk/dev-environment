@@ -202,6 +202,7 @@ sudo apt update
 sudo apt install alacrity -y
 
 cd "$USER_HOME/.local/share/fonts" && url -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFont-Regular.ttf
+cd "$USER_HOME/.themes/Alacritty" && curl -LO --output . https://github.com/catppuccin/alacritty/raw/main/catppuccin-macchiato.toml
 cp "$SCRIPT_PATH/.alacritty.toml" "$USER_HOME/.alacritty.toml"
 
 # Install tmux

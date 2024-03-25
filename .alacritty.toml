@@ -1,5 +1,5 @@
 import = [
-  "~/.themes/alacritty/catppuccin-macchiato.toml"
+  "~/.themes/Alacritty/catppuccin-macchiato.toml"
 ]
 
 [window]
