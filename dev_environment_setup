@@ -183,11 +183,22 @@ asdf global flutter latest
 flutter doctor --android-licenses
 flutter doctor
 
+. "$USER_HOME/.asdf/asdf.sh"
+asdf reshim
+asdf list-all neovim
+
 ## Install Neovim
 ## For some reason it only works in the home kkkkkkkkkkkkkkkk
 cd
 asdf install neovim latest
 asdf global neovim latest
+
+(
+echo "Sleeping a little bit to let asdf think"
+sleep 3  # Adjust time as needed
+asdf install neovim latest
+asdf global neovim latest
+) &
 
 # Install Lunar Vim
 # Make sure you have nodejs, python and rust installed via asdf
