@@ -142,10 +142,6 @@ asdf plugin-add rust
 asdf plugin-add flutter
 asdf plugin-add sqlite
 
-## Install Neovim
-asdf install neovim latest
-asdf global neovim latest
-
 ## Install SQLite
 asdf install sqlite latest
 asdf global sqlite latest
@@ -180,6 +176,10 @@ asdf global nodejs latest
 asdf install rust latest
 asdf global rust latest
 
+## Install Neovim
+asdf install neovim latest
+asdf global neovim latest
+
 ## Install flutter
 asdf install flutter latest
 asdf global flutter latest
@@ -199,7 +199,7 @@ cd "$USER_HOME/.local/share/fonts" && curl -fLO https://github.com/ryanoasis/ner
 # Install Alacritty - Terminal Emulator
 sudo add-apt-repository ppa:aslatter/ppa -y
 sudo apt update
-sudo apt install alacrity -y
+sudo apt install alacritty -y
 
 cd "$USER_HOME/.local/share/fonts" && url -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFont-Regular.ttf
 cd "$USER_HOME/.themes/Alacritty" && curl -LO --output . https://github.com/catppuccin/alacritty/raw/main/catppuccin-macchiato.toml

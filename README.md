@@ -5,7 +5,12 @@
 home/
     .bash_aliases
     .tmux.conf
+    .alacritty.toml
+    .config/lvim/config.lua
     .local/bin/shell-scripts/
+    .themes/
+        Adapta-Nokto/
+        Alacritty/
     .utils/
         Commands/
         APKs/
@@ -92,7 +97,7 @@ Backup/
 ```
 #### 1- Clone the repository
 ```
-    git clone https://github.com/Brunobrlk/dev-environment.git
+    git clone --recursive https://github.com/Brunobrlk/dev-environment.git
 ```
 #### 2- Go to the repository and execute the script passing the HD Name using the flag --hd-name="HD_NAME"
 ```
