@@ -130,6 +130,7 @@ git clone https://github.com/asdf-vm/asdf.git "$USER_HOME/.asdf" --branch v0.14.
 echo ". \"\$HOME/.asdf/asdf.sh\"" >> "$USER_HOME/.bashrc"
 echo ". \"\$HOME/.asdf/completions/asdf.bash\"" >> "$USER_HOME/.bashrc"
 source "$USER_HOME/.bashrc"
+. "$USER_HOME/.asdf/asdf.sh"
 
 ## Add language/framework asdf plugins
 asdf plugin-add neovim
@@ -183,6 +184,8 @@ flutter doctor --android-licenses
 flutter doctor
 
 ## Install Neovim
+## For some reason it only works in the home kkkkkkkkkkkkkkkk
+cd
 asdf install neovim latest
 asdf global neovim latest
 
