@@ -204,7 +204,7 @@ sudo add-apt-repository ppa:aslatter/ppa -y
 sudo apt update
 sudo apt install alacritty -y
 
-cd "$USER_HOME/.local/share/fonts" && url -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFont-Regular.ttf
+mkdir -p "$USER_HOME/.themes/Alacritty"
 cd "$USER_HOME/.themes/Alacritty" && curl -LO --output . https://github.com/catppuccin/alacritty/raw/main/catppuccin-macchiato.toml
 cp "$SCRIPT_PATH/.alacritty.toml" "$USER_HOME/.alacritty.toml"
 
