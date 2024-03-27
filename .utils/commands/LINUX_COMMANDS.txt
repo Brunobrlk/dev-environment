@@ -1,21 +1,25 @@
-[Move Window to Left/Right Monitor]
-	Super + Shift + [Left/Right]
+Super + h l k j = Resize window to fit in the Left/Right/Top/Bottom of the screen
+Super + H L K J = Move Window to Left/Right/Up/Down Monitor
+Super + Ctrl + 1 2 3 4 = Go to the 1/2/3/4 workspace
+Super + Ctrl + h l = Go to the left/right workspace
+Super + Ctrl + j k = Show the window/workspace selection screen
+Super + Ctrl + H L = Move window to Next/Previous Workspace
 
-[Move window to Next/Previous Workspace]
-	Ctrl + Shift + Alt + [Left/Right]
+Super + a = Open Android Studio
+Super + d = Show Desktop
+Super + f = Open File Manager
+Super + g = Open Google Chrome
+Super + e = Open Email Client
+Super + t = Open Terminal in fullscreen + tmux session
+Super + z = Maximize/Unmaximize window
+Super + n = Minimize window
+Super + x = Close window
+Super + f = Toggle fullscreen state
+Super + m = Open Melange(Cinnamon Debugger - Logs, Windows, etc.)
+Super + ; = Toggle always on top state
 
-[Resize window to fit in the Left/Right/Top/Bottom of the screen]
-	Super + [Left/Right/Up/Down]
+Alt + TAB = Alternate windows
+Alt + <S> + TAB = Alternate windows
 
-[Maximize/Unmaximize window]
-	Alt + Space then x
-
-[Minimize window]
-	Alt + Space thenpace]
-	Ctrl + Alt + n
-
-[Alternate windows]
-	Alt + TAB
-
-[Change to Left/Right Workspace]
-	Ctrl + Alt + [Left/Right]
+Super + Ctrl + s = Suspend
+Super + Ctrl + S = Shutdown
