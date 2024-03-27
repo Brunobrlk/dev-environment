@@ -1,3 +1,4 @@
+System Super or Windows key = Super
 Esc = <Esc>
 Alt = <A> or <M>
 Shift = <S> or Capital letter
