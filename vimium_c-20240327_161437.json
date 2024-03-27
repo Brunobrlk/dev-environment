@@ -1,0 +1,24 @@
+{
+	"name": "Vimium C",
+	"@time": "3/27/2024, 4:14:37 PM",
+	"time": 1711566877029,
+	"environment": {
+		"extension": "1.99.994",
+		"platform": "linux",
+		"chromium": 123
+	},
+	"exclusionRules": [
+		{
+			"passKeys": "c f j k l m ",
+			"pattern": ":https://www.youtube.com/watch"
+		}
+	],
+	"keyLayout": 2,
+	"keyMappings": [
+		"#!no-check",
+		"map ' Marks.activateGotoMode swap",
+		"map m Marks.activateCreateMode swap",
+		""
+	],
+	"vimSync": true
+}
