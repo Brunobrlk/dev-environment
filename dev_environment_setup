@@ -198,7 +198,7 @@ asdf global neovim latest
 # Make sure you have nodejs, python and rust installed via asdf
 # Then follow lunar vim installation
 no | LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
-cp "$SCRIPT_PATH" "$USER_HOME/.config/lvim"
+cp "$SCRIPT_PATH/config.lua" "$USER_HOME/.config/lvim"
 
 ## Download Nerd Fonts
 mkdir -p "$USER_HOME/.local/share/fonts"
@@ -317,6 +317,18 @@ curl -L -o postman.tar.gz https://dl.pstmn.io/download/latest/linux64
 tar -xzf postman.tar.gz
 sudo mv Postman /opt
 sudo ln -s /opt/Postman/Postman /usr/local/bin/postman
+
+## Creating Desktop entry
+cat <<EOF > "$USER_HOME/.local/share/applications/Postman.desktop"
+[Desktop Entry]
+Encoding=UTF-8
+Name=Postman
+Exec=/opt/Postman/app/Postman %U
+Icon=/opt/Postman/app/resources/app/assets/icon.png
+Terminal=false
+Type=Application
+Categories=Development;
+EOF
 
 ## Install Genymotion(Didn't find any mechanism to get the latest version automatically)
 latest_version="3.6.0"
