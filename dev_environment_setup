@@ -120,7 +120,12 @@ gsettings set org.cinnamon.desktop.interface gtk-theme "$DESKTOP_THEME"
 gsettings set org.cinnamon.desktop.background picture-uri "file://$USER_HOME/Pictures/Wallpapers/$WALLPAPER"
 
 # Install common dependencies
-apti build-essential gdb curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev bash file git unzip xz-utils jq zip clang cmake ninja-build libgtk-3-dev
+apti build-essential gdb curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev bash file git unzip xz-utils jq zip clang cmake ninja-build libgtk-3-dev bat htop
+
+# Configure ssh keys
+cp "$HD_PATH/Backup/Keys/github"* "$USER_HOME/.ssh/"
+ssh-add "$USER_HOME/.ssh/github_personal"
+ssh-add -l
 
 # Install personal scripts
 cp -rv "$SCRIPT_PATH/shell-scripts" "$USER_HOME/.local/bin/"
@@ -223,8 +228,12 @@ TMP_FOLDER="$USER_HOME/TemporaryFolder"
 mkdir -p "$TMP_FOLDER"
 cd "$TMP_FOLDER"
 
+## Install Pomodoro
+apti gnome-shell-pomodoro
+
 ## Install PCSX2
 apti pcsx2
+cp "$HD_PATH/Backup/Downloads/ps2_bios/"* "$USER_HOME/.config/PCSX2/bios/"
 
 ## Install Joystick Calibrator
 apti jstest-gtk
