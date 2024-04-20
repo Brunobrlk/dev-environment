@@ -8,12 +8,41 @@
 # Enable alias expansion
 shopt -s expand_aliases 
 
+
 # Helpers
 alias apti="sudo apt install -y"
-
-HD_NAME="Bruno"
 USER_HOME="$HOME"
 SCRIPT_PATH=$(dirname "$(realpath "$0")")
+
+
+# Get properties
+## Define the path to the settings file
+settings_file="setup.properties"
+
+## Check if the settings file exists
+if [ ! -f "$settings_file" ]; then
+    echo "Settings file '$settings_file' not found."
+    exit 1
+fi
+
+## Read key-value pairs from the settings file
+while IFS='=' read -r key value; do
+    # Remove surrounding quotes if present
+    value="${value#\"}"
+    value="${value%\"}"
+    # Assign the value to the variable with the key name
+    declare "$key=$value"
+done < "$settings_file"
+
+# Function to verify ignored softwares
+is_ignored_software(){
+  local code="$1"
+  if [[ -n "$IGNORED_SOFTWARES" && $IGNORED_SOFTWARES != *"$code"* ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
 
 # Function to display script usage information
 usage() {
@@ -48,25 +77,19 @@ while [[ $# -gt 0 ]]; do
             usage
             ;;
         --hd-name=*)
-            echo "hd-name is set"
-            # Handle logic
+            HD_NAME="${1#*=}"
             ;;
         --wallpaper=*)
-            echo "wallpaper is set"
-            # Handle logic
+            WALLPAPER="${1#*=}"
             ;;
-        # Add more flags here
         --add-softwares=*)
-            echo "add-softwares is set" 
-            # Handle logic
+            ADDITIONAL_SOFTWARES="${1#*=}"
             ;;
         --ignore-all)
-            echo "ignore-all is set"
-            # Handle logic
+            IGNORE_ALL=true
             ;;
         --ignore=*)
-            echo "ignore is set"
-            # Handle logic
+            IGNORED_SOFTWARES="${1#*=}"
             ;;
         -*)
             echo "Error: Unknown option: $1"
@@ -78,7 +101,6 @@ while [[ $# -gt 0 ]]; do
     esac
     shift
 done
-
 
 # Create .local/bin folder if doesn't exist yet
 mkdir -p "$USER_HOME/.local/bin"
@@ -103,7 +125,6 @@ dconf load /org/cinnamon/desktop/keybindings/ < dconf-shortcuts.conf
 # Setup GUI - Install Theme and Change background
 DESKTOP_THEME="Adapta-Nokto"
 ICON_THEME="Mint-Y-Dark-Blue"
-WALLPAPER="SaoWallpaper.png"
 
 if [ "$(lsb_release -rs)" = "21.3" ]; then
   ICON_THEME="Mint-L-Blue"
@@ -120,108 +141,121 @@ gsettings set org.cinnamon.desktop.interface gtk-theme "$DESKTOP_THEME"
 gsettings set org.cinnamon.desktop.background picture-uri "file://$USER_HOME/Pictures/Wallpapers/$WALLPAPER"
 
 # Install common dependencies
-apti build-essential gdb curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev bash file git unzip xz-utils jq zip clang cmake ninja-build libgtk-3-dev bat htop
+apti build-essential gdb curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev bash file git unzip xz-utils jq zip clang cmake ninja-build libgtk-3-dev bat htop tldr
 
 # Configure ssh keys
 cp "$HD_PATH/Backup/Keys/github"* "$USER_HOME/.ssh/"
 ssh-add "$USER_HOME/.ssh/github_personal"
 ssh-add -l
 
+if [[ $IGNORE_ALL == true ]]; then
+  IGNORED_SOFTWARES="#1 #2 #3 #4 #5 #6 #7 #8 #9 #10 #11 #12 #13 #14 #15 #16 #17 #18 #19 #20 #21 #22 #23 #24 #25 #26 #27 #28 #29 #30 #31 #32"
+fi
+
 # Install personal scripts
-cp -rv "$SCRIPT_PATH/shell-scripts" "$USER_HOME/.local/bin/"
-cd "$USER_HOME/.local/bin/shell-scripts" && "./setup"
+if ! is_ignored_software "#1"; then
+  cp -rv "$SCRIPT_PATH/shell-scripts" "$USER_HOME/.local/bin/"
+  cd "$USER_HOME/.local/bin/shell-scripts" && "./setup"
+fi
 
 # Install and configure asdf 
-git clone https://github.com/asdf-vm/asdf.git "$USER_HOME/.asdf" --branch v0.14.0
+if ! is_ignored_software "#2"; then
+  git clone https://github.com/asdf-vm/asdf.git "$USER_HOME/.asdf" --branch v0.14.0
+  echo ". \"\$HOME/.asdf/asdf.sh\"" >> "$USER_HOME/.bashrc"
+  echo ". \"\$HOME/.asdf/completions/asdf.bash\"" >> "$USER_HOME/.bashrc"
+  source "$USER_HOME/.bashrc"
+  . "$USER_HOME/.asdf/asdf.sh"
 
-echo ". \"\$HOME/.asdf/asdf.sh\"" >> "$USER_HOME/.bashrc"
-echo ". \"\$HOME/.asdf/completions/asdf.bash\"" >> "$USER_HOME/.bashrc"
-source "$USER_HOME/.bashrc"
-. "$USER_HOME/.asdf/asdf.sh"
+  ## Add language/framework asdf plugins
+  asdf plugin-add neovim
+  asdf plugin-add gradle
+  asdf plugin-add java
+  asdf plugin-add kotlin
+  asdf plugin-add python
+  asdf plugin-add nodejs
+  asdf plugin-add rust
+  asdf plugin-add flutter
+  asdf plugin-add sqlite
 
-## Add language/framework asdf plugins
-asdf plugin-add neovim
-asdf plugin-add gradle
-asdf plugin-add java
-asdf plugin-add kotlin
-asdf plugin-add python
-asdf plugin-add nodejs
-asdf plugin-add rust
-asdf plugin-add flutter
-asdf plugin-add sqlite
+  ## Install SQLite
+  asdf install sqlite latest
+  asdf global sqlite latest
 
-## Install SQLite
-asdf install sqlite latest
-asdf global sqlite latest
+  ## Install Gradle
+  asdf install gradle 3.3
+  asdf install gradle 7.6.3
+  asdf install gradle latest
+  asdf global gradle latest
 
-## Install Gradle
-asdf install gradle 3.3
-asdf install gradle 7.6.3
-asdf install gradle latest
-asdf global gradle latest
+  ## Install Kotlin
+  asdf install kotlin 1.8.0
+  asdf install kotlin latest
+  asdf global kotlin latest
 
-## Install Kotlin
-asdf install kotlin 1.8.0
-asdf install kotlin latest
-asdf global kotlin latest
+  ## Install Java
+  asdf install java corretto-8.392.08.1
+  asdf install java liberica-1.8.0
+  asdf install java openjdk-17
+  asdf install java latest
+  asdf global java latest 
 
-## Install Java
-asdf install java corretto-8.392.08.1
-asdf install java liberica-1.8.0
-asdf install java openjdk-17
-asdf install java latest
-asdf global java latest 
+  ## Install Python
+  asdf install python latest
+  asdf global python latest
 
-## Install Python
-asdf install python latest
-asdf global python latest
+  ## Install NodeJS
+  asdf install nodejs latest
+  asdf global nodejs latest
 
-## Install NodeJS
-asdf install nodejs latest
-asdf global nodejs latest
+  ## Install Rust
+  asdf install rust latest
+  asdf global rust latest
 
-## Install Rust
-asdf install rust latest
-asdf global rust latest
+  ## Install flutter
+  asdf install flutter latest
+  asdf global flutter latest
+  flutter doctor --android-licenses
+  flutter doctor
 
-## Install flutter
-asdf install flutter latest
-asdf global flutter latest
-flutter doctor --android-licenses
-flutter doctor
-
-## Install Neovim
-## For some reason it only works in the home kkkkkkkkkkkkkkkk
-cd
-asdf install neovim latest
-asdf global neovim latest
+  ## Install Neovim
+  ## For some reason it only works in the home kkkkkkkkkkkkkkkk
+  cd
+  asdf install neovim latest
+  asdf global neovim latest
+fi
 
 # Install Lunar Vim
-# Make sure you have nodejs, python and rust installed via asdf
-# Then follow lunar vim installation
-no | LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
-cp "$SCRIPT_PATH/config.lua" "$USER_HOME/.config/lvim"
+if ! is_ignored_software "#2" && ! is_ignored_software "#3"; then
+  # Make sure you have nodejs, python and rust installed via asdf
+  # Then follow lunar vim installation
+  no | LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
+  cp "$SCRIPT_PATH/config.lua" "$USER_HOME/.config/lvim"
 
-## Download Nerd Fonts
-mkdir -p "$USER_HOME/.local/share/fonts"
-cd "$USER_HOME/.local/share/fonts" && curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
+  ## Download Nerd Fonts
+  mkdir -p "$USER_HOME/.local/share/fonts"
+  cd "$USER_HOME/.local/share/fonts" && curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
+fi
 
 # Install Alacritty - Terminal Emulator
-sudo add-apt-repository ppa:aslatter/ppa -y
-sudo apt update
-sudo apt install alacritty -y
+if ! is_ignored_software "#4"; then
+  sudo add-apt-repository ppa:aslatter/ppa -y
+  sudo apt update
+  sudo apt install alacritty -y
 
-mkdir -p "$USER_HOME/.themes/Alacritty"
-cd "$USER_HOME/.themes/Alacritty" && curl -LO --output . https://github.com/catppuccin/alacritty/raw/main/catppuccin-macchiato.toml
-cp "$SCRIPT_PATH/.alacritty.toml" "$USER_HOME/.alacritty.toml"
+  mkdir -p "$USER_HOME/.themes/Alacritty"
+  cd "$USER_HOME/.themes/Alacritty" && curl -LO --output . https://github.com/catppuccin/alacritty/raw/main/catppuccin-macchiato.toml
+  cp "$SCRIPT_PATH/.alacritty.toml" "$USER_HOME/.alacritty.toml"
+fi
 
 # Install tmux
-apti tmux
-apti xsel
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if ! is_ignored_software "#5"; then
+  apti tmux
+  apti xsel
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-cp "$SCRIPT_PATH/.tmux.conf" "$USER_HOME/"
-tmux source "$USER_HOME/.tmux.conf"
+  cp "$SCRIPT_PATH/.tmux.conf" "$USER_HOME/"
+  tmux source "$USER_HOME/.tmux.conf"
+fi
 
 # Install common softwares
 TMP_FOLDER="$USER_HOME/TemporaryFolder"
@@ -229,100 +263,142 @@ mkdir -p "$TMP_FOLDER"
 cd "$TMP_FOLDER"
 
 ## Install Pomodoro
-apti gnome-shell-pomodoro
+if ! is_ignored_software "#6"; then
+  apti gnome-shell-pomodoro
+fi
 
 ## Install PCSX2
-apti pcsx2
-cp "$HD_PATH/Backup/Downloads/ps2_bios/"* "$USER_HOME/.config/PCSX2/bios/"
+if ! is_ignored_software "#7"; then
+  apti pcsx2
+  cp "$HD_PATH/Backup/Downloads/ps2_bios/"* "$USER_HOME/.config/PCSX2/bios/"
+fi
 
 ## Install Joystick Calibrator
-apti jstest-gtk
+if ! is_ignored_software "#8"; then
+  apti jstest-gtk
+fi
 
 ## Install Torrent/Transmission
-apti transmission
+if ! is_ignored_software "#9"; then
+  apti transmission
+fi
 
 ## Install Terminal Translator
-apti translate-shell
-
-## Install tldr
-apti tldr
+if ! is_ignored_software "#10"; then
+  apti translate-shell
+fi
 
 ## Install Google Chrome
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt-get install -f -y
+if ! is_ignored_software "#11"; then
+  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  sudo dpkg -i google-chrome-stable_current_amd64.deb
+  sudo apt-get install -f -y
+fi
 
 ## Install Firefox
-apti firefox
+if ! is_ignored_software "#12"; then
+  apti firefox
+fi
 
 ## Install Brave
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-sudo apt update
-apti brave-browser
+if ! is_ignored_software "#13"; then
+  sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+  echo "deb [arch=amd64 signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+  sudo apt update
+  apti brave-browser
+fi
 
 ## Install Discord
-wget -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
-sudo dpkg -i discord.deb
-sudo apt install -f -y
+if ! is_ignored_software "#14"; then
+  wget -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
+  sudo dpkg -i discord.deb
+  sudo apt install -f -y
+fi
 
 ## Install Skype
-apti skypeforlinux
-sudo cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d/
+if ! is_ignored_software "#15"; then
+  apti skypeforlinux
+  sudo cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d/
+fi
 
 ## Install Gimp
-apti gimp
+if ! is_ignored_software "#16"; then
+  apti gimp
+fi
 
 ## Install Libreoffice
-apti libreoffice
+if ! is_ignored_software "#17"; then
+  apti libreoffice
+fi
 
 ## Install Webcam
-apti guvcview
+if ! is_ignored_software "#18"; then
+  apti guvcview
+fi
 
 ## Install Kdenlive
-apti kdenlive
+if ! is_ignored_software "#19"; then
+  apti kdenlive
+fi
 
 ## Install OBS Studio
-apti obs-studio
+if ! is_ignored_software "#20"; then
+  apti obs-studio
+fi
 
 ## Install Shotcut
-apti shotcut
+if ! is_ignored_software "#21"; then
+  apti shotcut
+fi
 
 ## Install VLC
-apti vlc
+if ! is_ignored_software "#22"; then
+  apti vlc
+fi
 
 ## Install Anydesk
-sudo wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo gpg --dearmor --yes --output /etc/apt/trusted.gpg.d/anydesk.gpg
-echo "deb http://deb.anydesk.com/ all main" | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
-sudo apt update
-apti anydesk
+if ! is_ignored_software "#23"; then
+  sudo wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo gpg --dearmor --yes --output /etc/apt/trusted.gpg.d/anydesk.gpg
+  echo "deb http://deb.anydesk.com/ all main" | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
+  sudo apt update
+  apti anydesk
+fi
 
 ## Install TeamViewer
-wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-sudo dpkg -i teamviewer_amd64.deb
-sudo apt-get install -f -y
+if ! is_ignored_software "#24"; then
+  wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+  sudo dpkg -i teamviewer_amd64.deb
+  sudo apt-get install -f -y
+fi
 
 ## Install Virt Manager(Require to reboot)
-apti qemu-kvm
-apti libvirt-daemon-system libvirt-clients
-sudo adduser "$(whoami)" kvm
-apti virt-manager
+if ! is_ignored_software "#25"; then
+  apti qemu-kvm
+  apti libvirt-daemon-system libvirt-clients
+  sudo adduser "$(whoami)" kvm
+  apti virt-manager
+fi
 
 ## Install Dbeaver
-wget -O dbeaver.deb https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
-sudo dpkg -i dbeaver.deb
-sudo apt-get install -f -y
+if ! is_ignored_software "#26"; then
+  wget -O dbeaver.deb https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
+  sudo dpkg -i dbeaver.deb
+  sudo apt-get install -f -y
+fi
 
 ## Install Insomnia
-wget -O insomnia.deb https://updates.insomnia.rest/downloads/ubuntu/latest
-sudo dpkg -i insomnia.deb
-sudo apt-get install -f -y
+if ! is_ignored_software "#27"; then
+  wget -O insomnia.deb https://updates.insomnia.rest/downloads/ubuntu/latest
+  sudo dpkg -i insomnia.deb
+  sudo apt-get install -f -y
+fi
 
 ## Install Postman
-curl -L -o postman.tar.gz https://dl.pstmn.io/download/latest/linux64
-tar -xzf postman.tar.gz
-sudo mv Postman /opt
-sudo ln -s /opt/Postman/Postman /usr/local/bin/postman
+if ! is_ignored_software "#28"; then
+  curl -L -o postman.tar.gz https://dl.pstmn.io/download/latest/linux64
+  tar -xzf postman.tar.gz
+  sudo mv Postman /opt
+  sudo ln -s /opt/Postman/Postman /usr/local/bin/postman
 
 ## Creating Desktop entry
 cat <<EOF > "$USER_HOME/.local/share/applications/Postman.desktop"
@@ -335,26 +411,33 @@ Terminal=false
 Type=Application
 Categories=Development;
 EOF
+fi
 
 ## Install Genymotion(Didn't find any mechanism to get the latest version automatically)
-latest_version="3.6.0"
-download_url="https://dl.genymotion.com/releases/genymotion-$latest_version/genymotion-$latest_version-linux_x64.bin"
-wget "$download_url"
-chmod +x genymotion-$latest_version-linux_x64.bin
-yes | sudo ./genymotion-$latest_version-linux_x64.bin -d /opt
-sudo ln -s /opt/genymotion/genymotion-shell "$USER_HOME/.local/bin"
-sudo ln -s /opt/genymotion/gmtool "$USER_HOME/.local/bin"
+if ! is_ignored_software "#29"; then
+  latest_version="3.6.0"
+  download_url="https://dl.genymotion.com/releases/genymotion-$latest_version/genymotion-$latest_version-linux_x64.bin"
+  wget "$download_url"
+  chmod +x genymotion-$latest_version-linux_x64.bin
+  yes | sudo ./genymotion-$latest_version-linux_x64.bin -d /opt
+  sudo ln -s /opt/genymotion/genymotion-shell "$USER_HOME/.local/bin"
+  sudo ln -s /opt/genymotion/gmtool "$USER_HOME/.local/bin"
+fi
 
 ## Install vscode
-curl -L -o vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-sudo dpkg -i vscode.deb
-sudo apt install -f -y
+if ! is_ignored_software "#30"; then
+  curl -L -o vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+  sudo dpkg -i vscode.deb
+  sudo apt install -f -y
+fi
 
 ## Install IntelliJ
-sudo apt install apt-transport-https software-properties-common
-sudo add-apt-repository ppa:mmk2410/intellij-idea -y
-sudo apt update
-apti intellij-idea-community
+if ! is_ignored_software "#31"; then
+  sudo apt install apt-transport-https software-properties-common
+  sudo add-apt-repository ppa:mmk2410/intellij-idea -y
+  sudo apt update
+  apti intellij-idea-community
+fi
 
 # Clean up unused resources
 cd
@@ -362,7 +445,12 @@ rm -rf "$TMP_FOLDER"
 
 ## Install Android Studio versions and emulators
 wait $DOWNLOADS_PID
-"$SCRIPT_PATH/shell-scripts/setup_android_studio"
+if ! is_ignored_software "#32"; then
+  "$SCRIPT_PATH/shell-scripts/setup_android_studio"
+fi
+
+# Install additional dependencies
+apti $ADDITIONAL_SOFTWARES
 
 # Make the system up to date
 sudo apt dist-upgrade -y
