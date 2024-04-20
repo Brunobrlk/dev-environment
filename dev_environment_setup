@@ -102,6 +102,11 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+if [ -z "$HD_NAME" ]; then
+  echo "HD_NAME is not set. The script needs the hd name to run. Use --hd-name or setup.properties file. See more with --help"
+  exit 1
+fi
+
 # Create .local/bin folder if doesn't exist yet
 mkdir -p "$USER_HOME/.local/bin"
 source "$USER_HOME/.profile"
