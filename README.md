@@ -107,7 +107,7 @@ Backup/
     cd path_to_repo/dev-environment
 ```
 ```
-    bash dev_environment_setup --hd-name="Bruno"
+    source dev_environment_setup --hd-name="Bruno"
 ```
 You can also use **chmod +x** dev_environment_setup and then execute just running **./dev_environment_setup**
 
@@ -122,7 +122,7 @@ Backup/
             SaoBackgroundFHD.png
 ```
 ```
-bash dev_environment_setup --hd-name="Bruno" --background="SaoBackgroundFHD.png"
+source dev_environment_setup --hd-name="Bruno" --background="SaoBackgroundFHD.png"
 ```
 
 #### Adding more softwares to download via apt
@@ -140,7 +140,7 @@ Or using the flag **--add-softwares="pkg1 pkg2 pkg3"** passing the packages sepa
 
 Example:
 ```
-bash dev_environment_setup --hd-name="Bruno" --add-softwares="spotify mysql-server krita blender"
+source dev_environment_setup --hd-name="Bruno" --add-softwares="spotify mysql-server krita blender"
 ```
 
 #### Ignoring default packages
@@ -149,7 +149,7 @@ Example:
 
 Ignoring all:
 ```
-bash dev_environment_setup --hd-name="Bruno" --ignore-all
+source dev_environment_setup --hd-name="Bruno" --ignore-all
 ```
 
 Ignoring only the ones listed in setup.properties file passing its code(See [Softwares](#softwares) section):
@@ -163,5 +163,5 @@ Or use the flag **--ignore="#1 #2 #4"** passing the codes separated by space
 
 Example:
 ```
-bash dev_environment_setup --hd-name="Bruno" --ignore="#3 #6 #10 #12 #13"
+source dev_environment_setup --hd-name="Bruno" --ignore="#3 #6 #10 #12 #13"
 ```
