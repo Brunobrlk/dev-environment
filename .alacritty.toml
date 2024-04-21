@@ -7,10 +7,9 @@ decorations = "transparent"
 opacity = 0.85
 
 [font]
-size = 13
+size = 11
 # normal = { family = "UbuntuMono Nerd Font", style = "Regular" }
-normal = { family = "DroidSansM Nerd Font", style = "Regular" }
-
+normal = { family = "JetBrainsMonoNL NerdFont", style = "Regular" }
 [scrolling]
 history = 10000
 multiplier = 1

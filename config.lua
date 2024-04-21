@@ -16,7 +16,7 @@ lvim.keys.normal_mode = {
 lvim.keys.insert_mode["jk"] = "<ESC>"
 
 -------------------- Plugins --------------------
-lvim.colorscheme = "catppuccin"
+lvim.colorscheme = "catppuccin-macchiato"
 
 lvim.builtin.treesitter.ensure_installed = {
   "python",
