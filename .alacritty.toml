@@ -1,4 +1,4 @@
-import = [
+general.import = [
   "~/.themes/Alacritty/catppuccin-macchiato.toml"
 ]
 

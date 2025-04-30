@@ -3,7 +3,7 @@
 cp ~/.alacritty.toml .
 cp ~/.bash_aliases .
 cp ~/.tmux.conf .
-cp ~/.config/lvim/config.lua .
+cp -r ~/.config/lvim .
 
 dconf dump /org/cinnamon/desktop/keybindings/ > dconf-shortcuts.conf
 
