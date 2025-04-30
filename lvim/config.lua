@@ -14,10 +14,11 @@ reload("user.autocommands")
 -- Mappings
 reload("user.mappings")
 
--- Builtin Plugins
-reload("plugins.nvimtree")
-reload("plugins.telescope")
-reload("plugins.treesitter")
-
 -- User Plugins
 reload("user.plugins")
+
+-- Builtin Plugins
+reload("plugins.telescope")
+reload("plugins.nvimtree")
+reload("plugins.treesitter")
+reload("plugins.completion")

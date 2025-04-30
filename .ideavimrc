@@ -1,0 +1,82 @@
+let mapleader=" "
+imap jk <ESC>
+
+" better HJKL
+map H ^
+map L $
+map J 10j
+map K 10k
+
+map <A-j> <Action>(MoveStatementDown)
+map <A-k> <Action>(MoveStatementUp)
+
+" Run | Restart | Run Code-changes
+" Run Debug | Run Attach debug | Run Stop
+map <leader>rr <Action>(Run)
+map <leader>re <Action>(android.deploy.ApplyChanges)
+map <leader>rc <Action>(android.deploy.CodeSwap)
+map <leader>rd <Action>(Debug)
+map <leader>ra <Action>(AndroidConnectDebuggerAction)
+map <leader>rs <Action>(Stop)
+
+" Inspect Code | Tag Organize
+map <leader>ic <Action>(InspectCode)
+map <leader>to <Action>(IntentionActionAsAction_com.intellij.codeInsight.daemon.impl.analysis.RearrangeAttributesIntention)
+
+" ReBuild | Clean | Sync Project
+map <leader>rb <action>(RebuildGradleProject)
+map <leader>cl <Action>(CleanGradleProject)
+map <leader>sy <Action>(Android.SyncProject)
+map <leader>ga <Action>(Android.GenerateSignedApk)
+map <leader>ic <Action>(InvalidateCaches)
+
+map <leader>t1 <Action>(Android.Designer.CommonActions.ForceCompileAndRefreshActionForNotification)
+map <leader>t2 <Action>(ForceRefresh)
+
+
+" Git Log | Git Diff
+map <leader>gl <Action>(ActivateVersionControlToolWindow)
+map <leader>gd <Action>(Compare.SameVersion)
+
+" Split Vertical | Split Horizontal
+map <leader>sv <Action>(MoveTabRight)
+map <leader>sh <Action>(MoveTabDown)
+
+" Hide
+map <leader>h <Action>(HideAllWindows)
+
+" Edit Configurations
+map <leader>ec <Action>(editRunConfigurations)
+
+" Create File | Create Package => If Conflicts, migrate to Add File / Add Package using af and ap
+map <leader>cf <Action>(Kotlin.NewFile)
+map <leader>cp <Action>(NewDir)
+
+" Collapse Region
+map <leader>co <Action>(CollapseRegion)
+
+sethandler <C-2> a:ide
+sethandler <C-S-2> a:ide
+sethandler <C-A> a:vim
+sethandler <C-B> a:ide
+sethandler <C-C> a:ide
+sethandler <C-D> a:ide
+sethandler <C-E> a:vim
+sethandler <C-F> a:ide
+sethandler <C-G> a:vim
+sethandler <C-H> a:ide
+sethandler <C-I> a:ide
+sethandler <C-J> a:ide
+sethandler <C-L> a:ide
+sethandler <C-M> a:vim
+sethandler <C-N> a:vim
+sethandler <C-O> a:ide
+sethandler <C-P> a:ide
+sethandler <C-Q> a:ide
+sethandler <C-R> a:vim
+sethandler <C-S> a:vim
+sethandler <C-U> a:vim
+sethandler <C-V> a:ide
+sethandler <C-W> a:ide
+sethandler <C-X> a:vim
+sethandler <C-\> a:ide

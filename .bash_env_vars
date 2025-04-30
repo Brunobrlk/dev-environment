@@ -1,0 +1,20 @@
+export IP_HOST=192.168.1.38
+export IP_PHONE=192.168.1.17
+export IP_SRV=192.168.122.200
+export VMLUBUNTU=192.168.122.100
+export VMUBUNTU=192.168.122.101
+export VMPOPOS=192.168.122.102
+export PORT0_APP=17000
+export PORT1_APP=17001
+export PORT2_APP=17002
+export DK_MYSQL=17006
+export DK_POSTGRES=17032
+export DK_NEXTCLOUD=17080
+export DK_NEXTCLOUD_DB=17081
+export DK_NGINX=17082
+export DK_JENKINS=17083
+
+export FLUTTER_ROOT="$(asdf where flutter)"
+export JAVA_HOME="$(asdf where java)"
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools"

@@ -2,9 +2,11 @@
 
 cp ~/.alacritty.toml .
 cp ~/.bash_aliases .
+cp ~/.bash_env_vars .
 cp ~/.tmux.conf .
 cp -r ~/.config/lvim .
 cp ~/Android/android_studio_settings-*.zip .
+cp ~/.ideavimrc .
 
 dconf dump /org/cinnamon/desktop/keybindings/ > dconf-shortcuts.conf
 
