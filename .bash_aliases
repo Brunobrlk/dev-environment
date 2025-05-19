@@ -7,6 +7,9 @@
 # ivm - Init Virtual Machine
 # dk - Docker
 
+
+shopt -s expand_aliases
+
 # Navigating up. Ex: ..3 => Three directories up
 alias ..='cd ..'
 alias ..2='cd ../../'
@@ -73,8 +76,8 @@ alias wports='watch -n 1 netstat -tulanp'
 
 # Python Virtual Environment
 alias pyapp='python app.py'
-alias pyvenv='[ -d venv ] && { read -p "A virtual environment already exists. Do you want to recreate it? (y/n): " -n 1 -r && echo ""; [[ $REPLY =~ ^[Yy]$ ]] && rm -rf venv; } || python -m venv venv'
-alias pyon='source venv/bin/activate'
+alias pyvenv='[ -d .venv ] && { read -p "A virtual environment already exists. Do you want to recreate it? (y/n): " -n 1 -r && echo ""; [[ $REPLY =~ ^[Yy]$ ]] && rm -rf .venv; } || python -m venv .venv'
+alias pyon='source .venv/bin/activate'
 alias pyoff='deactivate'
 alias imsrv='cdpy && cd TestingLocalServers && python localmachine.py'
 alias ilsrv='cdpy && cd TestingLocalServers && python localhost.py'

@@ -18,3 +18,4 @@ export FLUTTER_ROOT="$(asdf where flutter)"
 export JAVA_HOME="$(asdf where java)"
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools"
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | batcat -p -lman'"

@@ -12,6 +12,7 @@ treesitter.ensure_installed = {
     "yaml",
     "javascript",
     "json",
+    "xml",
     "html",
     "css",
     "dart",
