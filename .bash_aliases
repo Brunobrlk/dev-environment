@@ -6,16 +6,33 @@
 # ch - Change
 # ivm - Init Virtual Machine
 # dk - Docker
+# udk - Up Docker(Compose)
+# ddk - Down Docker(Compose)
 
 
 shopt -s expand_aliases
 
-# Navigating up. Ex: ..3 => Three directories up
+# Git
+gcl(){
+    git clone git@github.com:$1
+}
+
+# Navigation
 alias ..='cd ..'
 alias ..2='cd ../../'
 alias ..3='cd ../../../'
 alias ..4='cd ../../../../'
 alias ..5='cd ../../../../../'
+alias cdmobile='cd ~/Development/Mobile/Android-Native/ClassicViews'
+alias cdnative='cd ~/Development/Mobile/Android-Native/ClassicViews'
+alias cdcompose='cd ~/Development/Mobile/Android-Native/JetpackCompose'
+alias cdpy='cd ~/Development/Python'
+alias cdpro='cd ~/Development/Projects/'
+alias cdbash='cd ~/Development/BashScripts/'
+alias cdasconf='cd ~/.config/Google/AndroidStudio2024.2'
+alias cdmain='cd "app/src/main/java/$(if [ -f app/build.gradle ]; then sed -n "s/applicationId[[:space:]]*\"\\([^\"]*\\)\"/\\1/p" app/build.gradle; else sed -n "s/applicationId[[:space:]]=[[:space:]]*\"\\([^\"]*\\)\"/\\1/p" app/build.gradle.kts; fi | sed -e "s/\./\//g" | sed -e "s/^[[:space:]]*//")"'
+alias cdres='cd app/src/main/res'
+alias cdtest='cd ~/Notes/Test'
 
 
 # Edit Files
@@ -64,17 +81,19 @@ alias ddkjenkins='docker-compose -f ~/.utils/DockerContainers/jenkins.yml down'
 alias udkcircleci='cd ~/.utils/DockerContainers && ./setup_circleci && docker-compose --env-file circleci_env -f circleci.yml run circleci bash'
 alias ddkcircleci='docker-compose -f ~/.utils/DockerContainers/circleci.yml down'
 
-# Showing system information
+# System information
 alias basedon='cat /etc/upstream-release/lsb-release'
 alias sysinfo='inxi -v 8'
 alias duh='du -ha --max-depth=1 | sort -rh'
+alias p="ps aux | grep $1" # Seems like direct arguments only works for | grep
 
 # Networking
 alias ipinfo='curl ipinfo.io && echo && echo "Local IP: $(hostname -I)"'
 alias ports='netstat -tulanp'
 alias wports='watch -n 1 netstat -tulanp'
 
-# Python Virtual Environment
+# Python
+alias py='python'
 alias pyapp='python app.py'
 alias pyvenv='[ -d .venv ] && { read -p "A virtual environment already exists. Do you want to recreate it? (y/n): " -n 1 -r && echo ""; [[ $REPLY =~ ^[Yy]$ ]] && rm -rf .venv; } || python -m venv .venv'
 alias pyon='source .venv/bin/activate'
@@ -97,15 +116,6 @@ alias pt='trans :pt'
 alias en='trans'
 
 # Utils
-alias cdmobile='cd ~/Development/Mobile/Android-Native/ClassicViews'
-alias cdnative='cd ~/Development/Mobile/Android-Native/ClassicViews'
-alias cdcompose='cd ~/Development/Mobile/Android-Native/JetpackCompose'
-alias cdpy='cd ~/Development/Python'
-alias cdpro='cd ~/Development/Projects/'
-alias cdbash='cd ~/Development/BashScripts/'
-alias cdasconf='cd ~/.config/Google/AndroidStudio2024.2'
-alias cdmain='cd "app/src/main/java/$(if [ -f app/build.gradle ]; then sed -n "s/applicationId[[:space:]]*\"\\([^\"]*\\)\"/\\1/p" app/build.gradle; else sed -n "s/applicationId[[:space:]]=[[:space:]]*\"\\([^\"]*\\)\"/\\1/p" app/build.gradle.kts; fi | sed -e "s/\./\//g" | sed -e "s/^[[:space:]]*//")"'
-alias cdres='cd app/src/main/res'
 
 alias lsapt='ls /etc/apt/sources.list.d'
 alias rm='trash-put'

@@ -7,6 +7,8 @@ cp ~/.tmux.conf .
 cp -r ~/.config/lvim .
 cp ~/Android/android_studio_settings-*.zip .
 cp ~/.ideavimrc .
+cp ~/.ssh/config .
+cp ~/.ssh/authorized_keys
 
 dconf dump /org/cinnamon/desktop/keybindings/ > dconf-shortcuts.conf
 

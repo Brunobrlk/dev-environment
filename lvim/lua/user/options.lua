@@ -5,7 +5,8 @@ require("catppuccin").setup({
             BookmarkSign = { fg = colors.sapphire, bg = "NONE", bold = true },
             BookmarkAnnotationSign = { fg = colors.peach, bg = "NONE", italic = true },
         }
-    end
+    end,
+    transparent_background = true
 })
 
 vim.g.bookmark_sign = ""

@@ -27,7 +27,6 @@ reload("plugins.lspconfig")
 
 -- TODO: How to use aliases inside LunarVim - Não tankei
 -- TODO: How to switch venv on/off - Não tankei
--- TODO: Setup telescope
 -- TODO: Setup vim-notify and replace dressing
 -- TODO: Setup DAP for 
     -- [] Python
