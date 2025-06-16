@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Author: Bruno Guimarães
+# Description: Brief description of what the script does
+# Version: 1.0
+# Last Updated: Date
+
+grep -oP '^\s*kotlin\s*=\s*"\K[0-9.]+' gradle/libs.versions.toml

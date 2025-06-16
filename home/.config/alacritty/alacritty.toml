@@ -1,5 +1,5 @@
 general.import = [
-  "~/.themes/Alacritty/catppuccin-macchiato.toml"
+  "~/.local/share/themes/Alacritty/catppuccin-macchiato.toml"
 ]
 
 [window]

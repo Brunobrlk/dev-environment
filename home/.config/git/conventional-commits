@@ -1,0 +1,16 @@
+# <type>[scope][!]: Description - ie:
+# Types - fix, feat, build, chore, ci, docs, style, refactor, perf, test
+# feat(api)!: send an email to the customer when a product is shipped
+
+# Body(Optional)
+# Paragraph1(Optional) - ie:
+# ie: Introduce a request id and a reference to latest request. Dismiss
+# incoming responses other than from latest request.
+
+# Paragraph2(Optional) - ie:
+# Remove timeouts which were used to mitigate the racing issue but are
+# obsolete now.
+
+# Footer(Optional) - ie:
+# Reviewed-by: <Person>
+# Refs: #<Number>

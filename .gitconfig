@@ -1,7 +1,0 @@
-[user]
-	name = Bruno Guimarães
-	email = brunoguimaraes.dev@gmail.com
-[pull]
-	ff = true
-[core]
-  editor = lvim

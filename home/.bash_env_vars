@@ -1,0 +1,47 @@
+# ~/.bash_init
+
+HISTCONTROL=ignoreboth
+HISTSIZE=10000
+HISTFILESIZE=20000
+HISTFILE=~/.config/bash/bash_history
+LESSHISTFILE=~/.config/less/lesshst
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
+export ASDF_DIR="$HOME/.config/asdf"
+export ASDF_DATA_DIR="$HOME/.config/asdf"
+
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$ASDF_DATA_DIR/shims"
+export PATH="$PATH:$HOME/Src/fzf/bin"
+
+export IP=192.168.1.58
+export IP_WIFI=192.168.1.52
+export IP_PHONE=192.168.1.17
+export IP_SRV=192.168.122.200
+
+export IP_LUBUNTU=192.168.122.100
+export IP_UBUNTU=192.168.122.101
+export IP_POPOS=192.168.122.102
+
+export PORT=17000
+export PORT1=17001
+export PORT2=17002
+
+export DK_MYSQL=17006
+export DK_POSTGRES=17032
+export DK_NEXTCLOUD=17080
+export DK_NEXTCLOUD_DB=17081
+export DK_NGINX=17082
+export DK_JENKINS=17083
+
+export MPD_HOST=/tmp/mpd_socket
+
+export FLUTTER_ROOT="$(asdf where flutter)"
+export JAVA_HOME="$(asdf where java)"
+export ANDROID_HOME=$HOME/Android/Sdk
+
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | batcat -p -lman'"
+export STARSHIP_CONFIG=~/.config/starship/starship.toml

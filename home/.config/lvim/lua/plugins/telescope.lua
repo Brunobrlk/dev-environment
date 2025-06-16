@@ -12,7 +12,7 @@ telescope.defaults = {
         height = 0.85,
         preview_cutoff = 120,
     },
-    winblend = 20,
+    winblend = 0,
     path_display = { truncate = 3 },
     file_ignore_patterns = { ".git", "venv" },
 

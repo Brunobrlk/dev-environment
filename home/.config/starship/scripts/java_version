@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Author: Bruno Guimarães
+# Description: Brief description of what the script does
+# Version: 1.0
+# Last Updated: Date
+
+# Try to extract from java.toolchain.languageVersion
+version_from_toolchain=$(grep -oP 'languageVersion\s*[\.\=]*\s*(JavaLanguageVersion\.of\()?([0-9]+)' app/build.gradle* 2>/dev/null | grep -oP '[0-9]+' | head -n1)
+
+if [ -n "$version_from_toolchain" ]; then
+    echo "$version_from_toolchain"
+    exit 0
+fi
+
+# Try to extract from compileOptions
+version_from_compatibility=$(grep -oP 'VERSION_(1_[0-9]+|[0-9]+)' app/build.gradle* 2>/dev/null | head -n1)
+
+if [[ "$version_from_compatibility" =~ 1_([0-9]+) ]]; then
+    echo "${BASH_REMATCH[1]}"
+    exit 0
+elif [[ "$version_from_compatibility" =~ VERSION_([0-9]+) ]]; then
+    echo "${BASH_REMATCH[1]}"
+    exit 0
+fi

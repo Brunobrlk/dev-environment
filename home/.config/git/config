@@ -1,0 +1,101 @@
+[user]
+	name = Bruno Guimarães
+	email = brunoguimaraes.dev@gmail.com
+    signingKey = 2522C7D112FCB5D34252BD4B137FEBB5A574B5B4
+
+[core]
+    editor = lvim
+
+[commit]
+    template = ~/.config/git/conventional-commits
+    gpgSign = true
+
+[pull]
+	ff = true
+
+[log]
+    abbrevCommit = true
+    graphColors = blue,yellow,cyan,magenta,green,red
+
+[status]
+    showStash = true
+
+[diff]
+    context = 3
+    renames = copies
+    interHunkContext = 10
+
+[diff-so-fancy]
+    markEmptyLines = false
+
+[pager]
+    diff = diff-so-fancy | less
+    branch = false
+    tag = false
+
+[interactive]
+    diffFilter = diff-so-fancy --patch
+    singlekey = true
+
+[color "diff"]
+    meta = black bold
+    frag = magenta
+    context = white
+    whitespace = yellow reverse
+    old = red
+
+[color "branch"]
+    current = magenta
+    local = magenta
+    remote = yellow
+    upstream = green
+    plain = blue
+
+[alias]
+    s = status
+    ss = status -s
+
+    st = stash
+    stl = stash list
+    stp = stash pop
+    sta = stash apply
+    stdel = stash drop
+
+    conf = config --global --edit
+    rh = reset HEAD
+
+    aa = add -A
+    ap = add --patch
+    cm = commit
+    cma = commit -a
+    amend = commit -a --amend --no-edit
+
+    pullr = pull --rebase
+    pushf = push --force-with-lease
+
+    l = log --pretty='format:%C(green)%ad %C(yellow)%h %C(ul cyan)%an%C(no-ul red) %d%n%C(white)%B' --date='format:%y-%m/%d %H:%m'
+    ll = log --pretty='format:%C(green)%ad %C(yellow)%h %C(cyan)%an %C(white)%s %C(red)%d' --date='format:%y-%m/%d %H:%m'
+    lg = log --graph --pretty='format:%C(green)%ad %C(yellow)%h %C(cyan)%an %C(white)%s %C(red)%d' --date='format:%y-%m/%d %H:%m'
+
+    b = branch
+    ba = branch -a
+    bdel = branch -d 
+
+    ch = checkout
+    clforce = clean -df
+
+    wl = worktree list
+    wa = worktree add
+    wdel = worktree remove
+    wb = "!f() { if [ -z \"$1\" ]; then echo 'Error: Branch name is required'; else git worktree add ../$(basename $(pwd))-$(echo $1 | tr '/' '-'); fi; }; f"
+
+# URL Shortcuts
+[url "git@github.com:Brunobrlk/"]
+    insteadOf = "Brunobrlk:"
+
+[url "git@github.com:Brunobrlk/"]
+    insteadOf = "brunobrlk:"
+
+[url "git@github.com:"]
+    insteadOf = "gh:"
+

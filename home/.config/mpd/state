@@ -1,0 +1,16 @@
+sw_volume: 100
+audio_device_state:1:PulseAudio Output
+state: stop
+current: 0
+random: 0
+repeat: 0
+single: 0
+consume: 0
+crossfade: 0
+mixrampdb: 0.000000
+mixrampdelay: -1.000000
+playlist_begin
+0:Baroes da Pisadinha/Nunca Vai Ser Eu.mp3
+1:Baroes da Pisadinha/Espinhaço do Véi.mp3
+2:Baroes da Pisadinha/American Pie.mp3
+playlist_end

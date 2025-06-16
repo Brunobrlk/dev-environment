@@ -116,8 +116,6 @@ alias pt='trans :pt'
 alias en='trans'
 
 # Utils
-
-alias lsapt='ls /etc/apt/sources.list.d'
 alias rm='trash-put'
 alias mkdirs='mkdir -p'
 alias src='source ~/.bashrc'
@@ -130,13 +128,26 @@ alias aptdu='sudo apt dist-upgrade -y'
 alias yt='yt-dlp -f "bv+ba/b" -P "$HOME/Videos"'
 alias screenlight='xrandr --output HDMI-0 --brightness'
 
+alias lsapt='ls /etc/apt/sources.list.d'
+alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Add an "alert" alias for long running commands.  Use like so: $ sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 md(){
-  pandoc $1 > /tmp/$1.html
-  xdg-open /tmp/$1.html
+    pandoc $1 > /tmp/$1.html
+    xdg-open /tmp/$1.html
 }
 
 cpbuff(){
-  cat $1 | xclip -selection clipboard
+    cat $1 | xclip -selection clipboard
 }
 
 # Android Development
